@@ -10,6 +10,6 @@ class Customer(models.Model):
 
 class Restaurant(models.Model):
     name = models.CharField(max_length = 20)
-    picture = models.URLField(max_length=200, default="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.vecteezy.com%2Ffree-vector%2Featery-logo&psig=AOvVaw1c5Sd6ltPFc9L0uhY2gaj6&ust=1758085101490000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCNDGgMG_3I8DFQAAAAAdAAAAABAE")
-    cuisine = models.CharField(max_length = 20)
+    picture = models.URLField(max_length = 500, default="https://static.vecteezy.com/system/resources/previews/052/792/818/non_2x/restaurant-logo-design-vector.jpg")
+    cuisine = models.CharField(max_length = 200)
     rating = models.FloatField()
