@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from .models import Customer
-from .models import Restaurant
+from .models import Restaurant, Item
 
 # Create your views here.
 def index(request):
@@ -75,7 +75,7 @@ def add_restaurant(request):
 # Show Restaurants
 def open_show_restaurant(request):
     restaurants = Restaurant.objects.all()
-    return render(request, 'show_restaurants.html', {"restaurants": restaurants})
+    return render(request, 'display_restuarants.html', {"restaurants": restaurants})
 
 # Opens Update Restaurant Page
 def open_update_restaurant(request, restaurant_id):
@@ -106,3 +106,32 @@ def delete_restaurant(request, restaurant_id):
         return redirect("open_show_restaurant")  # make sure this view exists!
     
     return render(request, "confirm_delete.html", {"restaurant": restaurant})
+
+# ...existing code...
+
+def open_add_item(request, restaurant_id):
+    restaurant = get_object_or_404(Restaurant, id=restaurant_id)
+    return render(request, 'add_item.html', {'restaurant': restaurant})
+
+# ...existing code...
+def add_item(request, restaurant_id):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        price = request.POST.get('price')
+        description = request.POST.get('description')
+        # Add your logic to save the item
+        return redirect('open_show_restaurant')
+    return HttpResponse("Invalid request")
+
+# ...existing code...
+
+def view_items(request, restaurant_id):
+    try:
+        restaurant = Restaurant.objects.get(id=restaurant_id)
+        items = Item.objects.filter(restaurant=restaurant)
+        return render(request, 'view_items.html', {
+            'restaurant': restaurant,
+            'items': items
+        })
+    except Restaurant.DoesNotExist:
+        return redirect('open_show_restaurant')

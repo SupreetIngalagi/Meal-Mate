@@ -15,7 +15,6 @@
                 <th>Name</th>
                 <th>Cuisine</th>
                 <th>Rating</th>
-                <th>Other Operations</th>
             </tr>
         </thead>
         <tbody>
@@ -27,19 +26,6 @@
                 <td>{{ restaurant.name }}</td>
                 <td>{{ restaurant.cuisine }}</td>
                 <td>{{ restaurant.rating }}/5</td>
-                <td>
-                    <a href="{% url 'open_update_restaurant' restaurant.id %}">Upadate Restaurant</a>
-                    <br>
-                    <form method="POST" action="{% url 'delete_restaurant' restaurant.id %}" style="display:inline;">
-                    {% csrf_token %}
-                        <button type="submit">Delete Restaurant</button>
-                    </form>
-                    <!-- <a href="{% url 'delete_restaurant' restaurant.id %}">delete Restaurant</a> -->
-                    <br>
-                    <a href="{% url 'open_add_item' restaurant.id %}">Add Item</a>
-                    <br>
-                    <a href="{% url 'view_items' restaurant.id %}">View Items</a>
-                </td>
             </tr>
             {% endfor %}
         </tbody>
